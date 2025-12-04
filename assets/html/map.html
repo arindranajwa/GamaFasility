@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Leaflet + Firebase Map</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .popup-container {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .popup-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .popup-category {
+            font-size: 13px;
+            color: #a744ff;
+            margin-bottom: 5px;
+        }
+
+        .popup-img {
+            width: 100%;
+            max-height: 120px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin: 6px 0;
+        }
+
+        .btn-area {
+            margin-top: 10px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            padding: 6px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            color: white;
+            font-size: 13px;
+        }
+
+        .btn-delete {
+            background: #e63946;
+        }
+
+        .btn-edit {
+            background: #457b9d;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyB6mS66RQHIJB4HtwcJ4YUuYUHwLjy-boc",
+            authDomain: "reactnative-aba59.firebaseapp.com",
+            databaseURL: "https://reactnative-aba59-default-rtdb.firebaseio.com",
+            projectId: "reactnative-aba59",
+            storageBucket: "reactnative-aba59.firebasestorage.app",
+            messagingSenderId: "883624086647",
+            appId: "1:883624086647:web:e79ab2ac124b4c54baca72",
+            measurementId: "G-K87WR4N80K"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        const map = L.map("map").setView([-7.7704, 110.3800], 15); 
+
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.carto.com/">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19
+        }).addTo(map);
+
+
+
+
+        // Custom icons dari assets
+        const icons = {
+            Toyagama: L.icon({
+                iconUrl: "assets/icons/toyagama.png",
+                iconSize: [15, 15],
+                iconAnchor: [16, 32] // tengah bawah ikon
+            }),
+            ATM: L.icon({
+                iconUrl: "assets/icons/atm.png",
+                iconSize: [15, 15],
+                iconAnchor: [16, 32]
+            }),
+            Halte: L.icon({
+                iconUrl: "assets/icons/halte.png",
+                iconSize: [15, 15],
+                iconAnchor: [16, 32]
+            }),
+            Sepeda: L.icon({
+                iconUrl: "assets/icons/bike.png",
+                iconSize: [15, 15],
+                iconAnchor: [16, 32]
+            }),
+            Asrama: L.icon({
+                iconUrl: "assets/icons/asrama.png",
+                iconSize: [15, 15],
+                iconAnchor: [16, 32]
+            }),
+        };
+
+
+        const pointsRef = database.ref("/points");
+
+        pointsRef.on("value", (snapshot) => {
+            const data = snapshot.val();
+            if (!data) return;
+
+            Object.keys(data).forEach((key) => {
+                const point = data[key];
+                if (!point.coordinates) return;
+
+                const coords = point.coordinates.split(",").map(parseFloat);
+                const icon = icons[point.category] || icons.Default;
+
+                // --- Popup baru TANPA koordinat ---
+                const popupHTML = `
+                    <div class="popup-container">
+                        <div class="popup-title">${point.name}</div>
+                        <div class="popup-category"><i class="fa fa-tag"></i> ${point.category}</div>
+
+                        ${point.photoURL ? `<img class="popup-img" src="${point.photoURL}" />` : ""}
+
+                        <div class="btn-area">
+
+                            <button class="btn btn-delete" onclick="deletePoint('${key}')">
+                                <i class="fa fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                L.marker(coords, { icon }).addTo(map).bindPopup(popupHTML);
+            });
+        });
+
+        function deletePoint(id) {
+            if (!confirm("Yakin menghapus titik ini?")) return;
+
+            pointsRef.child(id).remove();
+            alert("Titik berhasil dihapus!");
+            location.reload();
+        }
+
+    </script>
+</body>
+
+</html>
