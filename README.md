@@ -1,50 +1,78 @@
-# Welcome to your Expo app 👋
+# GamaFacility 🌟
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+GamaFacility adalah aplikasi mobile yang memudahkan mahasiswa dan pengunjung untuk menemukan fasilitas di lingkungan kampus UGM dengan cepat dan mudah. Aplikasi ini menampilkan berbagai fasilitas seperti Toyagama, ATM, Halte, Sepeda, dan Asrama dengan peta interaktif serta fitur form input lokasi.
 
-## Get started
+---
 
-1. Install dependencies
+## 📱 Screenshots
 
-   ```bash
-   npm install
-   ```
+### Beranda
+![Beranda](./screenshots/beranda.png)
 
-2. Start the app
+- Menampilkan sambutan aplikasi dan navigasi utama
+- Fitur cepat ke Lokasi Terdekat, Informasi Fasilitas, dan Bantuan 24/7
+- Preview kategori fasilitas
 
-   ```bash
-   npx expo start
-   ```
+### Kategori Fasilitas
+![Kategori](./screenshots/kategori.png)
 
-In the output, you'll find options to open the app in a
+- Menampilkan daftar kategori fasilitas
+- Jumlah lokasi tersedia per kategori
+- Peta kampus UGM interaktif
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### Statistik & Peta
+![Statistik](./screenshots/statistik.png)
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- Grafik jumlah fasilitas per kategori
+- Daftar fasilitas lengkap dengan detail lokasi
 
-## Get a fresh project
+### Peta Lokasi
+![Peta](./screenshots/peta.png)
 
-When you're ready, run:
+- Tampilan peta interaktif
+- Menampilkan semua lokasi fasilitas di kampus
+- FAB (+) untuk menambahkan lokasi baru
 
+### Form Input Location
+![Form Input](./screenshots/form_input.png)
+
+- Input nama lokasi, kategori, koordinat, akurasi, dan gambar
+- Tombol untuk memilih gambar dan mengambil koordinat saat itu juga
+- Simpan lokasi ke database Firebase
+
+### Daftar Lokasi
+![Daftar Lokasi](./screenshots/daftar_lokasi.png)
+
+- Menampilkan semua titik lokasi yang tersimpan
+- Fitur edit dan hapus lokasi dengan mudah
+
+---
+
+## ⚙️ Fitur Utama
+
+- **Peta Interaktif:** Lihat semua fasilitas kampus di peta dengan ikon kategori.
+- **Form Input Location:** Tambah lokasi baru lengkap dengan foto, kategori, dan koordinat.
+- **Edit & Hapus Lokasi:** Update data lokasi dengan mudah.
+- **Grafik Statistik:** Visualisasi jumlah fasilitas per kategori.
+- **Kategori Fasilitas:** Filter lokasi berdasarkan kategori seperti ATM, Halte, Sepeda, dll.
+- **Get Current Location:** Ambil koordinat pengguna secara real-time.
+
+---
+
+## 🧩 Komponen Utama
+
+- **React Native**: Framework utama untuk aplikasi mobile.
+- **Expo Router**: Navigasi dan routing antar halaman.
+- **Leaflet & React-Leaflet**: Untuk peta interaktif.
+- **Firebase Realtime Database**: Menyimpan data lokasi secara real-time.
+- **Firebase Storage**: Menyimpan gambar lokasi.
+- **Expo Image Picker**: Upload foto lokasi dari galeri.
+- **Expo Location**: Ambil koordinat pengguna.
+
+---
+
+## 🚀 Cara Menjalankan
+
+1. Clone repository:
 ```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+git clone https://github.com/username/gamafacility.git
