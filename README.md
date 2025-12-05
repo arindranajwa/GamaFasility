@@ -7,7 +7,8 @@ GamaFacility adalah aplikasi mobile yang memudahkan mahasiswa dan pengunjung unt
 ## 📱 Screenshots
 
 ### Beranda
-![Beranda](./screenshots/beranda.png)
+
+![WhatsApp Image 2025-12-05 at 05 00 25_960e3906](https://github.com/user-attachments/assets/0a30e02f-974a-4748-b663-cfb535a2fd57)
 
 - Menampilkan sambutan aplikasi dan navigasi utama
 - Fitur cepat ke Lokasi Terdekat, Informasi Fasilitas, dan Bantuan 24/7
